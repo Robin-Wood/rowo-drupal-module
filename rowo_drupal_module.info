@@ -1,0 +1,3 @@
+name = rowo-drupal-module
+description = custom functions of robinwood.de
+core = 7.x
