@@ -117,8 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
   </template>
 </div>`,
       mounted: function() {
-        let baseUrl = window.baseurl || '';
-        const url = `${baseUrl}/assets/data/indexanddata.json`;
+        const url = `indexanddata.json`;
 
         EventBus.$on('select-item', item => {
           this.selectedProvider = item;
