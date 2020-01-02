@@ -70,7 +70,10 @@ function rowo_drupal_module_block_view($delta = '') {
 function rowo_drupal_module_theme() {
   return array(
     'anbietersuche' => array(
-      'template' => 'anbietersuche' 
+      'template' => 'anbietersuche',
+      'variables' => array('data' => drupal_get_path('module', 'rowo_drupal_module') . '/indexanddata.json',
+                           'criteria' => drupal_get_path('module', 'rowo_drupal_module') . '/criteria.csv',
+                     ), 
     )
   );
 }
