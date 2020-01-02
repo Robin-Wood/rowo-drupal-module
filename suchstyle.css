@@ -1,7 +1,43 @@
 .v-search input {
   background-color: white;
   border: 2px solid #8c8c8c;
+  color: rgb(25,25,25);
   font-size: 120%;
   padding: 1rem;
   width: 100%;
+}
+
+.v-search p {
+  display: none;
+}
+
+.v-search ul {
+  background-color: white;
+  border: 2px solid #8c8c8c;
+  border-top: none;
+  margin-top: 0;
+  max-height: 50rem;
+  overflow-y: auto;
+  overflow-x: hide;
+  padding-left: 0;
+}
+
+.v-search ul li {
+  list-style: none;
+}
+
+.v-search ul li:hover {
+  background-color: #eeeeee;
+  text-decoration: none;
+}
+
+.v-search ul li a {
+  color: rgb(25,25,25);
+  display: inline-block;
+  width: 100%;
+}
+
+.v-search ul li a h4 {
+  padding: 1rem;
+  margin: 0;
 }
