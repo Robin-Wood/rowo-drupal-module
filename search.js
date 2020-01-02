@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
     Vue.component('v-search', {
       props: [],
       template: `
-<label>Suche deinen Anbieter
+<label>
   <input type="text"
-         placeholder="zB Anbietername, Website oder Stadt"
+         placeholder="Suche deinen Anbieter"
          @input="$emit('typing', $event.target.value)">
 </label>`,
       methods: {},
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     Vue.component('v-profile', {
       props: ['item', 'criteria'],
       template: `
-<article v-if="item">
+<article class="article__text" v-if="item">
   <h1>{{this.item['Firmenname']}}</h1>
   <p>{{ criteria[item['RoWo-Kriterien']]['cat']}}</p>
   <template v-if="criteria[item['RoWo-Kriterien']]">
@@ -70,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
       <a :href="criteria[item['RoWo-Kriterien']]['method_link']">Über die Methoden</a></small>
     </p>
   </template>
-  <hr>
   <h2>Allgemeine Infos zum Anbieter</h2>
   <p>{{ item['Firmenname']}}</p>
   <p v-if="item['Stadt']">{{ item['Adresse']}}, {{ item['PLZ']}} {{ item['Stadt']}}</p>
@@ -80,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
   </p>
   <p v-if="item['Zertifizierung']">Ein oder mehrere Stromprodukte dieses Anbietern wurden mit diesen Siegeln/Labeln zertifiziert:<br>
     {{ item['Zertifizierung'] }}</p>
-  <hr>
   <p>Permalink für diesen Anbieter im Ökostrombericht <input readonly type="text" :value="makeHref"></p>
 </article>`,
       computed: {

@@ -2,12 +2,13 @@
   background-color: white;
   border: 2px solid #8c8c8c;
   color: rgb(25,25,25);
+  font-family: MarkWebPro,sans-serif;
   font-size: 120%;
   padding: 1rem;
   width: 100%;
 }
 
-.v-search p {
+.v-search > p {
   display: none;
 }
 
@@ -18,8 +19,11 @@
   margin-top: 0;
   max-height: 50rem;
   overflow-y: auto;
-  overflow-x: hide;
   padding-left: 0;
+}
+
+.v-search ul:empty {
+  display: none;
 }
 
 .v-search ul li {
@@ -40,4 +44,8 @@
 .v-search ul li a h4 {
   padding: 1rem;
   margin: 0;
+}
+
+.v-search button {
+  padding-left: 0;
 }
