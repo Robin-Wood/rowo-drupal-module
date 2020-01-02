@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-  if (document.getElementById('app')) {
+  var container = document.getElementById('app');
+  var providerData = container.dataset.providerdata;
+  var criteriaData = container.dataset.criteriadata;
+
+  if (container) {
     const EventBus = new Vue();
 
     Vue.component('v-search', {
@@ -57,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <p v-if="item['Begründung']" v-html="reasoning"></p>
 
     <p v-if="criteria[item['RoWo-Kriterien']]['show_energymix'] == 'True'">
-      Siehe <a :href="item['Kennzeichnung Link']">Strommix</a> von {{this.item['Firmenname']}}
+      Siehe <a :href="item['Kennzeichnung Link']" rel="nofollow">Strommix</a> von {{this.item['Firmenname']}}
     </p>
 
     <a :href="criteria[item['RoWo-Kriterien']]['link']">{{ criteria[item['RoWo-Kriterien']]['link_label']}}</a>
@@ -71,7 +75,10 @@ document.addEventListener("DOMContentLoaded", function () {
   <p>{{ item['Firmenname']}}</p>
   <p v-if="item['Stadt']">{{ item['Adresse']}}, {{ item['PLZ']}} {{ item['Stadt']}}</p>
   <p v-if="item['URL']"><a :href="item['URL']">{{ item['URL']}}</a></p>
-  <p v-if="item['Zertifizierung']">Ein oder mehrere Stromprodukte dieses Anbietern wurden mit diesen Sigeln/Labeln zertifiziert:<br>
+  <p v-if="item['Kennzeichnung Link']">
+     <a :href="item['Kennzeichnung Link']" title="Zum Strommix von {{this.item['Firmenname']}}" rel="nofollow">Strommix</a> <small>(Stand 2019)</small>
+  </p>
+  <p v-if="item['Zertifizierung']">Ein oder mehrere Stromprodukte dieses Anbietern wurden mit diesen Siegeln/Labeln zertifiziert:<br>
     {{ item['Zertifizierung'] }}</p>
   <hr>
   <p>Permalink für diesen Anbieter im Ökostrombericht <input readonly type="text" :value="makeHref"></p>
@@ -117,7 +124,9 @@ document.addEventListener("DOMContentLoaded", function () {
   </template>
 </div>`,
       mounted: function() {
-        const url = `indexanddata.json`;
+        let baseUrl = window.baseurl || '';
+
+        const url = `${baseUrl}${providerData}`;
 
         EventBus.$on('select-item', item => {
           this.selectedProvider = item;
@@ -133,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // lunr index is prebuild in scripts/build_index.js
             this.searchIndex = lunr.Index.load(data.idx);
           }),
-          fetch(`${baseUrl}/assets/data/criteria.csv`)
+          fetch(`${baseUrl}${criteriaData}`)
             .then(response => {
               return response.text();
             }).then((data) => {
@@ -168,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 this.state = 'search';
               }
             });
+
       },
       methods: {
         searching(term) {
