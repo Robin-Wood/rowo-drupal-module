@@ -7,11 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const EventBus = new Vue();
 
     Vue.component('v-search', {
-      props: [],
+      props: ['value'],
       template: `
 <label>
   <input type="text"
          placeholder="Suche deinen Anbieter"
+         v-bind:value="value"
          @input="$emit('typing', $event.target.value)">
 </label>`,
       methods: {},
@@ -114,12 +115,9 @@ document.addEventListener("DOMContentLoaded", function () {
   </template>
   <template v-else>
     <template v-if="searchIndex">
-      <v-search v-on:typing="this.searching"></v-search>
+      <v-search v-bind:value="selectedProvider['Firmenname']" v-on:typing="this.searching"></v-search>
     </template>
     <div class="v-search__result">
-      <div class="back">
-        <button class="back__title" type="button" @click="toSearch">◂ Zu den Suchergebnissen</button>
-      </div>
       <v-profile v-if=selectedProvider
                :item="selectedProvider"
                :criteria="this.criteria"></v-profile>

@@ -48,14 +48,6 @@
   margin: 0;
 }
 
-.v-search .back {
-  margin-top: -1.5rem;
-}
-
-.v-search button {
-  padding-left: 0;
-}
-
 .v-search__result {
   border: 2px solid #8c8c8c;
   border-top: none;
