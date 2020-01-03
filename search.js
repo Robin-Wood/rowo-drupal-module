@@ -108,17 +108,23 @@ document.addEventListener("DOMContentLoaded", function () {
   <template v-if="state == 'search'">
     <template v-if="searchIndex">
       <v-search v-on:typing="this.searching"></v-search>
-      <p v-if="this.results != 0">Anzahl Ergebnisse für "{{this.search}}":  {{this.results.length}}</p>
     </template>
     <p v-else>Anbieterdaten werden geladen</p>
     <v-list :list="this.results" :criteria="this.criteria"></v-list>
   </template>
   <template v-else>
-    <button type="button" @click="toSearch">◂ Zu den Suchergebnissen</button>
-    <v-profile v-if=selectedProvider
+    <template v-if="searchIndex">
+      <v-search v-on:typing="this.searching"></v-search>
+    </template>
+    <div class="v-search__result">
+      <div class="back">
+        <button class="back__title" type="button" @click="toSearch">◂ Zu den Suchergebnissen</button>
+      </div>
+      <v-profile v-if=selectedProvider
                :item="selectedProvider"
                :criteria="this.criteria"></v-profile>
-    <p v-else>Anbieter nicht gefunden</p>
+      <p v-else>Anbieter nicht gefunden</p>
+    </div>
   </template>
 </div>`,
       mounted: function() {
@@ -179,7 +185,8 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       methods: {
         searching(term) {
-          this.search = term;
+          this.state = 'search';
+	  this.search = term;
           if (term.length > 2) {
             let results = this.searchIndex.search(term + '~1');
             this.results = results.map(v => {

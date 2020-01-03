@@ -1,8 +1,11 @@
-.v-search input {
+.v-search {
   background-color: white;
+  font-family: MarkWebPro,sans-serif;
+}
+
+.v-search input {
   border: 2px solid #8c8c8c;
   color: rgb(25,25,25);
-  font-family: MarkWebPro,sans-serif;
   font-size: 120%;
   padding: 1rem;
   width: 100%;
@@ -13,7 +16,6 @@
 }
 
 .v-search ul {
-  background-color: white;
   border: 2px solid #8c8c8c;
   border-top: none;
   margin-top: 0;
@@ -46,6 +48,17 @@
   margin: 0;
 }
 
+.v-search .back {
+  margin-top: -1.5rem;
+}
+
 .v-search button {
   padding-left: 0;
+}
+
+.v-search__result {
+  border: 2px solid #8c8c8c;
+  border-top: none;
+  margin-top: 0;
+  padding: 1.5rem;
 }
