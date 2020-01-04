@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
     <h3 class="anbieter__title">{{this.item['Firmenname']}}</h3>
   </header>
   <div class="anbieter__info">
-    <p>{{ criteria[item['Kriterium-Websuche']]['cat']}}</p>
     <template v-if="criteria[item['Kriterium-Websuche']]">
       <ul class="demands-list">
         <li class="demand">
@@ -70,17 +69,15 @@ document.addEventListener("DOMContentLoaded", function () {
             {{ criteria[item['Kriterium-Websuche']]['title']}}
           </h3>
           <p class="demand__text" v-html="displayCriteria"></p>
+	  <p class="demand__text" v-if="criteria[item['Kriterium-Websuche']]['show_energymix'] == 'True'">
+            (siehe <a :href="item['Kennzeichnung Link']" rel="nofollow">Strommix</a> von {{this.item['Firmenname']}})
+          </p>
+          <p v-if="item['Begründung']" class="demand__text" v-html="reasoning"></p>
         </li>
       </ul>
 
       <p v-if="criteria[item['Kriterium-Websuche']]['show_profile'] == 'True'">
         Zum <a href="#">RoWo-Anbieterprofil</a> von {{this.item['Firmenname']}}
-      </p>
-
-      <p v-if="item['Begründung']" v-html="reasoning"></p>
-
-      <p v-if="criteria[item['Kriterium-Websuche']]['show_energymix'] == 'True'">
-        Siehe <a :href="item['Kennzeichnung Link']" rel="nofollow">Strommix</a> von {{this.item['Firmenname']}}
       </p>
 
       <a :href="criteria[item['Kriterium-Websuche']]['link']">{{ criteria[item['Kriterium-Websuche']]['link_label']}}</a>
