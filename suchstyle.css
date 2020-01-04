@@ -51,10 +51,17 @@
 .demand__no .demand__number {
   background-color: #c51616;
 }
+.demand__maybe .demand__number {
+  background-color: #ffc516;
+}
 
-.demand__no .demand__title {
+.demand__title.demand__no {
   color: #c51616;
 }
+.demand__title.demand__maybe {
+  color: #ffc516;
+}
+
 
 .anbieter__info {
   padding: 2rem;

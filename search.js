@@ -55,13 +55,20 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="anbieter__info">
     <p>{{ criteria[item['Kriterium-Websuche']]['cat']}}</p>
     <template v-if="criteria[item['Kriterium-Websuche']]">
-      
       <ul class="demands-list">
-        <li class="demand demand__no">
-          <h3 class="demand__title">
-            <span class="demand__number">x</span>
+        <li class="demand">
+          <h3 v-if="criteria[item['Kriterium-Websuche']]['empfehlung'] == 'no'" class="demand__title demand__no">
+            <span class="demand__number">✕</span>
             {{ criteria[item['Kriterium-Websuche']]['title']}}
-          </h3>         
+          </h3>
+          <h3 v-if="criteria[item['Kriterium-Websuche']]['empfehlung'] == 'maybe'" class="demand__title demand__maybe">
+            <span class="demand__number">?</span>
+            {{ criteria[item['Kriterium-Websuche']]['title']}}
+          </h3>
+          <h3 v-if="criteria[item['Kriterium-Websuche']]['empfehlung'] == 'yes'" class="demand__title demand__yes">
+            <span class="demand__number">✓</span>
+            {{ criteria[item['Kriterium-Websuche']]['title']}}
+          </h3>
           <p class="demand__text" v-html="displayCriteria"></p>
         </li>
       </ul>
@@ -176,6 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 this.criteria[idx]['method_link'] = v[7];
                 this.criteria[idx]['show_profile'] = v[8];
                 this.criteria[idx]['show_energymix'] = v[9];
+                this.criteria[idx]['empfehlung'] = v[10];
               });
             })]).then(() => {
               let params = window.location.search.split("?anbieter=");
