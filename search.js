@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     Vue.component('v-list', {
       props: ['list', 'criteria'],
       template: `
-<ul>
+<ul class="v-search__list">
   <v-item v-for="item in list"
           :key="item.index"
           :item="item"
@@ -48,39 +48,51 @@ document.addEventListener("DOMContentLoaded", function () {
     Vue.component('v-profile', {
       props: ['item', 'criteria'],
       template: `
-<article class="article__text" v-if="item">
-  <h1>{{this.item['Firmenname']}}</h1>
-  <p>{{ criteria[item['Kriterium-Websuche']]['cat']}}</p>
-  <template v-if="criteria[item['Kriterium-Websuche']]">
-    <p><strong>{{ criteria[item['Kriterium-Websuche']]['title']}}</strong></h3>
-    <p v-html="displayCriteria"></p>
+<article class="anbieter" v-if="item">
+  <header class="anbieter__header">
+    <h3 class="anbieter__title">{{this.item['Firmenname']}}</h3>
+  </header>
+  <div class="anbieter__info">
+    <p>{{ criteria[item['Kriterium-Websuche']]['cat']}}</p>
+    <template v-if="criteria[item['Kriterium-Websuche']]">
+      
+      <ul class="demands-list">
+        <li class="demand demand__no">
+          <h3 class="demand__title">
+            <span class="demand__number">x</span>
+            {{ criteria[item['Kriterium-Websuche']]['title']}}
+          </h3>         
+          <p class="demand__text" v-html="displayCriteria"></p>
+        </li>
+      </ul>
 
-    <p v-if="criteria[item['Kriterium-Websuche']]['show_profile'] == 'True'">
-      Zum <a href="#">RoWo-Anbieterprofil</a> von {{this.item['Firmenname']}}
+      <p v-if="criteria[item['Kriterium-Websuche']]['show_profile'] == 'True'">
+        Zum <a href="#">RoWo-Anbieterprofil</a> von {{this.item['Firmenname']}}
+      </p>
+
+      <p v-if="item['Begründung']" v-html="reasoning"></p>
+
+      <p v-if="criteria[item['Kriterium-Websuche']]['show_energymix'] == 'True'">
+        Siehe <a :href="item['Kennzeichnung Link']" rel="nofollow">Strommix</a> von {{this.item['Firmenname']}}
+      </p>
+
+      <a :href="criteria[item['Kriterium-Websuche']]['link']">{{ criteria[item['Kriterium-Websuche']]['link_label']}}</a>
+      <p v-if="criteria[item['Kriterium-Websuche']]['method_label']">
+        <small>{{ criteria[item['Kriterium-Websuche']]['method_label'] }}<br>
+        <a :href="criteria[item['Kriterium-Websuche']]['method_link']">Über die Methoden</a></small>
+      </p>
+    </template>
+    <h2>Allgemeine Infos zum Anbieter</h2>
+    <p>{{ item['Firmenname']}}</p>
+    <p v-if="item['Stadt']">{{ item['Adresse']}}, {{ item['PLZ']}} {{ item['Stadt']}}</p>
+    <p v-if="item['URL']"><a :href="item['URL']">{{ item['URL']}}</a></p>
+    <p v-if="item['Kennzeichnung Link']">
+       <a :href="item['Kennzeichnung Link']" title="Zum Strommix von {{this.item['Firmenname']}}" rel="nofollow">Strommix</a> <small>(Stand 2019)</small>
     </p>
-
-    <p v-if="item['Begründung']" v-html="reasoning"></p>
-
-    <p v-if="criteria[item['Kriterium-Websuche']]['show_energymix'] == 'True'">
-      Siehe <a :href="item['Kennzeichnung Link']" rel="nofollow">Strommix</a> von {{this.item['Firmenname']}}
-    </p>
-
-    <a :href="criteria[item['Kriterium-Websuche']]['link']">{{ criteria[item['Kriterium-Websuche']]['link_label']}}</a>
-    <p v-if="criteria[item['Kriterium-Websuche']]['method_label']">
-      <small>{{ criteria[item['Kriterium-Websuche']]['method_label'] }}<br>
-      <a :href="criteria[item['Kriterium-Websuche']]['method_link']">Über die Methoden</a></small>
-    </p>
-  </template>
-  <h2>Allgemeine Infos zum Anbieter</h2>
-  <p>{{ item['Firmenname']}}</p>
-  <p v-if="item['Stadt']">{{ item['Adresse']}}, {{ item['PLZ']}} {{ item['Stadt']}}</p>
-  <p v-if="item['URL']"><a :href="item['URL']">{{ item['URL']}}</a></p>
-  <p v-if="item['Kennzeichnung Link']">
-     <a :href="item['Kennzeichnung Link']" title="Zum Strommix von {{this.item['Firmenname']}}" rel="nofollow">Strommix</a> <small>(Stand 2019)</small>
-  </p>
-  <p v-if="item['Zertifizierung']">Ein oder mehrere Stromprodukte dieses Anbietern wurden mit diesen Siegeln/Labeln zertifiziert:<br>
-    {{ item['Zertifizierung'] }}</p>
-  <p>Permalink für diesen Anbieter im Ökostrombericht <input readonly type="text" :value="makeHref"></p>
+    <p v-if="item['Zertifizierung']">Ein oder mehrere Stromprodukte dieses Anbietern wurden mit diesen Siegeln/Labeln zertifiziert:<br>
+      {{ item['Zertifizierung'] }}</p>
+    <p>Permalink für diesen Anbieter im Ökostrombericht <input readonly type="text" :value="makeHref"></p>
+  </div>
 </article>`,
       computed: {
         makeHref() {

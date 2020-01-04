@@ -15,7 +15,7 @@
   display: none;
 }
 
-.v-search ul {
+.v-search .v-search__list {
   border: 2px solid #8c8c8c;
   border-top: none;
   margin-top: 0;
@@ -24,33 +24,38 @@
   padding-left: 0;
 }
 
-.v-search ul:empty {
+.v-search .v-search__list:empty {
   display: none;
 }
 
-.v-search ul li {
+.v-search .v-search__list li {
   list-style: none;
 }
 
-.v-search ul li:hover {
+.v-search .v-search__list li:hover {
   background-color: #eeeeee;
   text-decoration: none;
 }
 
-.v-search ul li a {
+.v-search .v-search__list li a {
   color: rgb(25,25,25);
   display: inline-block;
   width: 100%;
 }
 
-.v-search ul li a h4 {
+.v-search .v-search__list li a h4 {
   padding: 1rem;
   margin: 0;
 }
 
-.v-search__result {
-  border: 2px solid #8c8c8c;
-  border-top: none;
-  margin-top: 0;
-  padding: 1.5rem;
+.demand__no .demand__number {
+  background-color: #c51616;
+}
+
+.demand__no .demand__title {
+  color: #c51616;
+}
+
+.anbieter__info {
+  padding: 2rem;
 }
