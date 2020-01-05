@@ -62,6 +62,9 @@
   color: #ffc516;
 }
 
+.anbieter .extension {
+  color: white;
+}
 
 .anbieter__info {
   padding: 2rem;

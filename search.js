@@ -76,26 +76,35 @@ document.addEventListener("DOMContentLoaded", function () {
         </li>
       </ul>
 
-      <p v-if="criteria[item['Kriterium-Websuche']]['show_profile'] == 'True'">
-        Zum <a href="#">RoWo-Anbieterprofil</a> von {{this.item['Firmenname']}}
-      </p>
+      <p class="anbieter__methode" v-if="criteria[item['Kriterium-Websuche']]['method_label']">
+        {{ criteria[item['Kriterium-Websuche']]['method_label'] }}
+      </p>  
 
-      <a :href="criteria[item['Kriterium-Websuche']]['link']">{{ criteria[item['Kriterium-Websuche']]['link_label']}}</a>
-      <p v-if="criteria[item['Kriterium-Websuche']]['method_label']">
-        <small>{{ criteria[item['Kriterium-Websuche']]['method_label'] }}<br>
-        <a :href="criteria[item['Kriterium-Websuche']]['method_link']">Über die Methoden</a></small>
+      <p v-if="criteria[item['Kriterium-Websuche']]['show_profile'] == 'True'">
+        <a class="extension" href="#">
+          <svg class="icon extension__icon"
+              role="img">
+            <use xlink:href="/sites/all/themes/tweme/dist/images/sprite.svg#external-link">
+          </svg>
+          <h4 class="extension__title">ROBIN WOOD-Anbieterprofil von {{this.item['Firmenname']}}</h4>
+        </a>
       </p>
     </template>
-    <h2>Allgemeine Infos zum Anbieter</h2>
-    <p>{{ item['Firmenname']}}</p>
-    <p v-if="item['Stadt']">{{ item['Adresse']}}, {{ item['PLZ']}} {{ item['Stadt']}}</p>
-    <p v-if="item['URL']"><a :href="item['URL']">{{ item['URL']}}</a></p>
-    <p v-if="item['Kennzeichnung Link']">
-       <a :href="item['Kennzeichnung Link']" title="Zum Strommix von {{this.item['Firmenname']}}" rel="nofollow">Strommix</a> <small>(Stand 2019)</small>
-    </p>
-    <p v-if="item['Zertifizierung']">Ein oder mehrere Stromprodukte dieses Anbietern wurden mit diesen Siegeln/Labeln zertifiziert:<br>
-      {{ item['Zertifizierung'] }}</p>
-    <p>Permalink für diesen Anbieter im Ökostrombericht <input readonly type="text" :value="makeHref"></p>
+    <div class="anbieter__box">
+      <h3>Weitere Infos zum Anbieter</h3>
+      <p>
+        {{ item['Firmenname']}}
+        <br>
+        <template v-if="item['Stadt']">{{ item['Adresse']}}, {{ item['PLZ']}} {{ item['Stadt']}}</template>
+        <br>
+        <template v-if="item['URL']"><a :href="item['URL']">{{ item['URL']}}</a>
+      </p>
+      <p v-if="item['Zertifizierung']">Ein oder mehrere Stromprodukte dieses Anbietern wurden mit diesen Siegeln/Labeln zertifiziert:<br>
+        {{ item['Zertifizierung'] }}</p>
+    </div>
+    <div class="anbieter__box">
+      <p>Permalink zum Teilen dieses Suchergebnisses<br> <a :href="makeHref" v-html="makeHref"></a></p>
+    </div>
   </div>
 </article>`,
       computed: {
@@ -106,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return this.item['Begründung'].replace(/###/gi, "<br><br>• ").replace(/##/gi, '<br><br>');
         },
         displayCriteria() {
-          return this.criteria[this.item['Kriterium-Websuche']]['text'].replace(/###/gi, "<br><br>• ");
+          return this.criteria[this.item['Kriterium-Websuche']]['text'].replace(/###/gi, "<br><br>• ").replace(/##/gi, '</p><p class="demand__text">');
         }
       }
     });
