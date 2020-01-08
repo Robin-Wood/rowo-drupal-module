@@ -12,42 +12,9 @@ function rowo_drupal_module_block_info() {
 }  
 
 
-/** 
- * Implements hook_block_configure().
- */
-
-function rowo_drupal_module_block_configure($delta='') {
-  $form = array();
-
-  if ($delta === 'anbieter_suche') {
-    $form['file'] = array(
-      '#name' => 'data_file',
-      '#type' => 'managed_file',
-      '#title' => t('Anbieter-Daten'),
-      '#description' => t('JSON-Datei mit den Anbieter-Daten hochladen.'),
-      '#upload_location' => 'public://anbieter_daten/',
-      '#upload_validators' => array(
-        'file_validate_extensions' => array('json'),
-      ),
-    );
-  }
-  return $form;
-}
-
-
 /**
- * Implements hook_block_save()
+ * Implements hook_block_view().
  */
-function rowo_drupal_module_block_save($delta = '', $edit = array()) {
-  if ($delta === 'anbieter_suche') {
-    $file= file_load($edit['file']);
-    $file->status = FILE_STATUS_PERMANENT;
-    file_save($file);
-    $block = block_load('rowo_drupal_module', $delta);
-    file_usage_add($file, 'rowo_drupal_module', 'block', $block->bid);
-    variable_set('block_data_fid', $file->fid);
-  }
-}
 
 function rowo_drupal_module_block_view($delta = '') {
   if ($delta === 'anbieter_suche') {
@@ -66,6 +33,11 @@ function rowo_drupal_module_block_view($delta = '') {
     return $block;
   }
 }
+
+
+/**
+ * Implements hook_theme().
+ */
 
 function rowo_drupal_module_theme() {
   return array(

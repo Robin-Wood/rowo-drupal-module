@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </p>  
 
       <p v-if="criteria[item['Kriterium-Websuche']]['show_profile'] == 'True'">
-        <a class="extension" href="#">
+        <a class="extension" :href="this.item['RoWo-Anbieterprofil']">
           <svg class="icon extension__icon"
               role="img">
             <use xlink:href="/sites/all/themes/tweme/dist/images/sprite.svg#external-link">
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })]).then(() => {
               let params = window.location.search.split("?anbieter=");
               if (params.length != -1 && params.length > 1) {
-
+              
                 let results = Object.values(this.providers)
                     .filter((x, i) => encodeURI(x['Firmenname']) === params[1]);
                 if (results.length < 0) {
@@ -215,7 +215,9 @@ document.addEventListener("DOMContentLoaded", function () {
           this.state = 'search';
 	  this.search = term;
           if (term.length > 2) {
-            let results = this.searchIndex.search(term + '~1');
+            let andTerms = term.split(' ').map(x => '+' + x).join(' ');
+            //console.log(fuzzyTerms);
+            let results = this.searchIndex.search(andTerms + '~1');
             this.results = results.map(v => {
               let indexAsInt = parseInt(v.ref, 10);
               return this.providers[indexAsInt];
