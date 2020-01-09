@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return `${window.location}?anbieter=${encodeURI(this.item['Firmenname'])}`;
         },
         reasoning() {
-          return this.item['Begründung'].replace(/###/gi, "<br><br>• ").replace(/##/gi, '<br><br>');
+          return this.item['Begründung'].replace(/###/gi, "").replace(/##/gi, '</p><p class="demand__text">');
         },
         displayCriteria() {
           return this.criteria[this.item['Kriterium-Websuche']]['text'].replace(/###/gi, "<br><br>• ").replace(/##/gi, '</p><p class="demand__text">');
